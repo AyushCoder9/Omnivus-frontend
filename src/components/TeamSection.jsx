@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 import { Facebook, Twitter, Instagram } from "lucide-react";
 
@@ -32,7 +31,7 @@ const TeamSection = () => {
     {
       name: "Doris Jordan",
       position: "Design Expert",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&h=300&fit=crop"
+      image: "https://randomuser.me/api/portraits/women/44.jpg"
     },
     {
       name: "Harry Garrett",

@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 
 const TestimonialsSection = () => {
@@ -34,7 +33,7 @@ const TestimonialsSection = () => {
       text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis at est id leo luctus gravida a in ipsum.",
       author: "Kelly Coleman",
       position: "Nulla nec",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=80&h=80&fit=crop",
+      image: "https://randomuser.me/api/portraits/women/65.jpg",
       color: "border-teal-500"
     },
     {

@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 
 const LatestNewsSection = () => {
@@ -44,7 +43,7 @@ const LatestNewsSection = () => {
   ];
 
   return (
-    <section ref={sectionRef} className="py-20 bg-white">
+    <section ref={sectionRef} className="py-20 bg-[#0a2240]">
       <div className="container mx-auto px-6">
         <div
           className={`text-center mb-16 transform transition-all duration-1000 ${

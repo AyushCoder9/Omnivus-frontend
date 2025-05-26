@@ -1,4 +1,3 @@
-
 import { useEffect, useRef, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -9,6 +8,7 @@ const Services = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const sectionRef = useRef(null);
+  const [planType, setPlanType] = useState('monthly');
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -78,28 +78,39 @@ const Services = () => {
   const plans = [
     {
       name: "Early Birds",
-      price: 9,
+      price: planType === 'monthly' ? 9 : 90,
       description: "The functional goal of technical content is to help people use a product successfully.",
-      features: ["Basic Support", "5 Projects", "10GB Storage", "Email Support"]
+      features: ["Basic Support", "5 Projects", "10GB Storage", "Email Support"],
+      type: ["monthly", "yearly"]
     },
     {
       name: "Team",
-      price: 32,
+      price: planType === 'monthly' ? 32 : 320,
       description: "The functional goal of technical content is to help people use a product successfully.",
       features: ["Priority Support", "20 Projects", "100GB Storage", "Phone Support"],
-      popular: true
+      popular: true,
+      type: ["monthly", "yearly"]
     },
     {
       name: "Personal",
-      price: 69,
+      price: planType === 'monthly' ? 69 : 690,
       description: "The functional goal of technical content is to help people use a product successfully.",
-      features: ["Premium Support", "50 Projects", "500GB Storage", "24/7 Support"]
+      features: ["Premium Support", "50 Projects", "500GB Storage", "24/7 Support"],
+      type: ["monthly", "yearly"]
     },
     {
       name: "Platinum",
-      price: 99,
+      price: planType === 'monthly' ? 99 : 999,
       description: "The functional goal of technical content is to help people use a product successfully.",
-      features: ["VIP Support", "Unlimited Projects", "Unlimited Storage", "Dedicated Manager"]
+      features: ["VIP Support", "Unlimited Projects", "Unlimited Storage", "Dedicated Manager"],
+      type: ["monthly", "yearly"]
+    },
+    {
+      name: "Yearly Plan",
+      price: 999,
+      description: "Best value for annual commitment. All features included.",
+      features: ["All Premium Features", "Unlimited Projects", "Unlimited Storage", "Dedicated Support"],
+      type: ["yearly"]
     }
   ];
 
@@ -195,17 +206,17 @@ const Services = () => {
             </h2>
             <div className="flex justify-center mt-8">
               <div className="bg-white rounded-full p-1 shadow-lg">
-                <button className="px-6 py-2 bg-blue-600 text-white rounded-full transition-all duration-300">Monthly</button>
-                <button className="px-6 py-2 text-gray-600 hover:text-blue-600 transition-colors">Yearly</button>
+                <button onClick={() => setPlanType('monthly')} className={`px-6 py-2 rounded-full transition-all duration-300 ${planType === 'monthly' ? 'bg-blue-600 text-white' : 'text-gray-600 hover:text-blue-600'}`}>Monthly</button>
+                <button onClick={() => setPlanType('yearly')} className={`px-6 py-2 rounded-full transition-all duration-300 ${planType === 'yearly' ? 'bg-blue-600 text-white' : 'text-gray-600 hover:text-blue-600'}`}>Yearly</button>
               </div>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {plans.map((plan, index) => (
+            {plans.filter(plan => plan.type.includes(planType)).map((plan, index) => (
               <div
                 key={index}
-                className={`bg-white rounded-xl p-8 shadow-lg hover:shadow-2xl transform transition-all duration-500 hover:-translate-y-2 ${
+                className={`bg-white rounded-xl p-8 shadow-lg hover:shadow-2xl transform transition-all duration-500 hover:-translate-y-2 group relative ${
                   plan.popular ? 'ring-2 ring-blue-600 scale-105' : ''
                 } ${isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
                 style={{ transitionDelay: `${index * 100}ms` }}
@@ -215,32 +226,30 @@ const Services = () => {
                     <span className="text-sm font-semibold">Most Popular</span>
                   </div>
                 )}
-                
-                <div className="text-center">
-                  <h3 className="text-2xl font-bold text-gray-800 mb-4">{plan.name}</h3>
+                <div className="text-center relative z-10">
+                  <h3 className="text-2xl font-bold text-gray-800 mb-4 group-hover:text-white transition-colors duration-300">{plan.name}</h3>
                   <div className="mb-6">
-                    <span className="text-4xl font-bold text-blue-600">${plan.price}</span>
-                    <span className="text-gray-600 ml-2">Per Month</span>
+                    <span className="text-4xl font-bold text-blue-600 group-hover:text-white transition-colors duration-300">${plan.price}</span>
+                    <span className="text-gray-600 ml-2 group-hover:text-white transition-colors duration-300">{planType === 'monthly' ? 'Per Month' : 'Per Year'}</span>
                   </div>
-                  <p className="text-gray-600 text-sm mb-6">{plan.description}</p>
-                  
+                  <p className="text-gray-600 text-sm mb-6 group-hover:text-white transition-colors duration-300">{plan.description}</p>
                   <ul className="space-y-3 mb-8">
                     {plan.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center text-sm text-gray-600">
-                        <span className="text-green-500 mr-2">✓</span>
+                      <li key={idx} className="flex items-center text-sm text-gray-600 group-hover:text-white transition-colors duration-300">
+                        <span className="text-green-500 mr-2 group-hover:text-white transition-colors duration-300">✓</span>
                         {feature}
                       </li>
                     ))}
                   </ul>
-                  
                   <button className={`w-full py-3 rounded font-semibold transition-all duration-300 transform hover:scale-105 ${
                     plan.popular 
                       ? 'bg-blue-600 text-white hover:bg-blue-700' 
-                      : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
+                      : 'bg-gray-100 text-gray-800 hover:bg-blue-600 hover:text-white'
                   }`}>
                     Purchase Now
                   </button>
                 </div>
+                <div className="absolute inset-0 bg-blue-600 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 ease-in-out -z-0"></div>
               </div>
             ))}
           </div>
