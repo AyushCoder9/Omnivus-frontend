@@ -64,7 +64,6 @@ src/
 
 **Ayush Kumar Singh**
 - Developed as an internship assignment for CollegePur
-- Contact: [Your Contact Information]
 
 ## 📝 License
 
